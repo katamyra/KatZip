@@ -1,0 +1,3 @@
+/Users/krishkatariya/Documents/Code/Projects/KatZip/cmake-build-debug/CMakeFiles/KatZip.dir
+/Users/krishkatariya/Documents/Code/Projects/KatZip/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/krishkatariya/Documents/Code/Projects/KatZip/cmake-build-debug/CMakeFiles/rebuild_cache.dir
