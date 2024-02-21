@@ -24,6 +24,8 @@ struct MinHeap {
 
 struct MinHeapNode *newnode(char item, unsigned freq);
 struct MinHeap *createMinHeap(unsigned capacity);
+void swapMinHNode(struct MinHeapNode **a, struct MinHeapNode **b);
+void downHeap(struct MinHeap *minHeap, int index);
 #endif //KATZIP_MINHEAP_H
 
 
