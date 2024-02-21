@@ -67,6 +67,12 @@ build CMakeFiles/KatZip.dir/Utils/HuffmanTree.cpp.o: CXX_COMPILER__KatZip_unscan
   OBJECT_DIR = CMakeFiles/KatZip.dir
   OBJECT_FILE_DIR = CMakeFiles/KatZip.dir/Utils
 
+build CMakeFiles/KatZip.dir/Utils/MinHeap.cpp.o: CXX_COMPILER__KatZip_unscanned_Debug /Users/krishkatariya/Documents/Code/Projects/KatZip/Utils/MinHeap.cpp || cmake_object_order_depends_target_KatZip
+  DEP_FILE = CMakeFiles/KatZip.dir/Utils/MinHeap.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/KatZip.dir
+  OBJECT_FILE_DIR = CMakeFiles/KatZip.dir/Utils
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target KatZip
@@ -75,7 +81,7 @@ build CMakeFiles/KatZip.dir/Utils/HuffmanTree.cpp.o: CXX_COMPILER__KatZip_unscan
 #############################################
 # Link the executable KatZip
 
-build KatZip: CXX_EXECUTABLE_LINKER__KatZip_Debug CMakeFiles/KatZip.dir/main.cpp.o CMakeFiles/KatZip.dir/Utils/Encode.cpp.o CMakeFiles/KatZip.dir/Utils/HuffmanTree.cpp.o
+build KatZip: CXX_EXECUTABLE_LINKER__KatZip_Debug CMakeFiles/KatZip.dir/main.cpp.o CMakeFiles/KatZip.dir/Utils/Encode.cpp.o CMakeFiles/KatZip.dir/Utils/HuffmanTree.cpp.o CMakeFiles/KatZip.dir/Utils/MinHeap.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk
   OBJECT_DIR = CMakeFiles/KatZip.dir
   POST_BUILD = :
