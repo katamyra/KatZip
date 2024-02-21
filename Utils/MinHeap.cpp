@@ -32,3 +32,53 @@ void swapMinHNode(struct MinHeapNode **a, struct MinHeapNode **b) {
     *b = t;
 }
 
+void downHeap(struct MinHeap *minH, int index) {
+    int smallest = index;
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+
+    if (left < minH -> size && minH -> array[left] -> freq < minH -> array[smallest] -> freq) {
+        smallest = left;
+    }
+    if (right < minH->size && minH->array[right]->freq < minH->array[smallest]->freq)
+        smallest = right;
+
+    if (smallest != index) {
+        swapMinHNode(&minH->array[smallest],
+                     &minH->array[index]);
+        downHeap(minH, smallest);
+    }
+}
+
+int checkSizeOne(struct MinHeap *minH) {
+    return (minH -> size == 1);
+}
+
+struct MinHeapNode *removeMin(struct MinHeap *minH) {
+    struct MinHeapNode *temp = minH -> array[0];
+    minH -> array[0] = minH -> array[minH -> size - 1];
+
+    --minH -> size;
+    downHeap(minH, 0);
+
+    return temp;
+}
+
+void insertMinHeap(struct MinHeap *minH, struct MinHeapNode *minHNode) {
+    ++minH -> size;
+    int i = minH -> size - 1;
+
+    while (i && minHNode -> freq < minH->array[(i - 1) / 2] -> freq) {
+        minH->array[i] = minH->array[(i - 1) / 2];
+        i = (i - 1) / 2;
+    }
+
+    minH -> array[i] = minHNode;
+
+}
+
+
+
+
+
+
