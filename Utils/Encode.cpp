@@ -1,8 +1,11 @@
 //
 // Created by Krish Katariya on 2/20/24.
 //
-#include "MinHeap.h"
+
+#include "HuffmanTree.h"
 #include <iostream>
+#include <unordered_map>
+#include <fstream>
 using namespace std;
 
 int main() {
@@ -15,3 +18,24 @@ int main() {
     cout << "\n----------------------\n";
     HuffmanCodes(arr, freq, size);
 }
+
+unordered_map<char, int> generateFrequencies(string pathname) {
+    std::ifstream file(pathname);
+
+    if (!file.is_open()) {
+        cerr << "Error opening file. Invalid path?\n";
+    }
+
+    char c;
+    unordered_map<char, int> frequencies;
+    while (file.get(c)) {
+        if (frequencies.find(c) != frequencies.end()) {
+            frequencies[c]++;
+        } else {
+            frequencies[c] = 1;
+        }
+    }
+    return frequencies;
+}
+
+

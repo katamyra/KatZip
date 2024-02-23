@@ -139,9 +139,3 @@ void printHuffmanCodes(struct MinHeapNode *root, int arr[], int top) {
     }
 }
 
-void HuffmanCodes(char item[], int freq[], int size) {
-    struct MinHeapNode *root = buildHFTree(item, freq, size);
-    int arr[MAX_TREE_HEIGHT], top = 0;
-
-    printHuffmanCodes(root, arr, top);
-}

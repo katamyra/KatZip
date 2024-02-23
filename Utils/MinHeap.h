@@ -33,6 +33,7 @@ void buildMinHeap(struct MinHeap *minH);
 struct MinHeap *createMinHeap(char item[], int freq[], int size);
 struct MinHeapNode *buildHFTree(char item[], int freq[], int size);
 void HuffmanCodes(char item[], int freq[], int size);
+void printHuffmanCodes(struct MinHeapNode *root, int arr[], int top);
 #endif //KATZIP_MINHEAP_H
 
 

@@ -8,4 +8,5 @@ add_executable(KatZip main.cpp
         Utils/HuffmanTree.cpp
         Utils/MinHeap.cpp
         Utils/MinHeap.h
+        Utils/HuffmanTree.h
 )
