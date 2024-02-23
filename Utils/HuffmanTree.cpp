@@ -3,22 +3,11 @@
 //
 
 using namespace std;
-#include <cstdlib>
 #include <iostream>
+#include "MinHeap.h"
 
-struct MinHeapNode {
-    char data;
-    unsigned freq;
+struct MinHeapNode *createHuffManTree(char values[], int frequencies[], int size) {
+    struct MinHeap *prioq = createMinHeap(values, frequencies, size);
 
-    struct MinHeapNode *left, *right;
 
 };
-
-struct MinHeap {
-    unsigned size;
-
-    unsigned capacity;
-
-    struct MinHeapNode** array;
-};
-

@@ -1,11 +1,9 @@
 //
 // Created by Krish Katariya on 2/20/24.
 //
-
-
-
 #include "MinHeap.h"
-
+#include <iostream>
+using namespace std;
 #define MAX_TREE_HEIGHT 50
 
 struct MinHeapNode *newnode(char item, unsigned freq) {
@@ -77,8 +75,73 @@ void insertMinHeap(struct MinHeap *minH, struct MinHeapNode *minHNode) {
 
 }
 
+void buildMinHeap(struct MinHeap *minH) {
+  int n = minH -> size - 1;
+  int i;
+  
+  for (i = (n - 1) / 2; i >= 0; --i) {
+    downHeap(minH, i);
+  }
+}
 
 
+struct MinHeap *createMinHeap(char item[], int freq[], int size) {
+  struct MinHeap *minH = createMinHeap(size);
+  for (int i = 0; i < size; ++i) {
+    minH -> array[i] = newnode(item[i], freq[i]);
+  }
+  minH -> size = size;
+  buildMinHeap(minH);
 
+  return minH;
+}
 
+struct MinHeapNode *buildHFTree(char item[], int freq[], int size) {
+    struct MinHeapNode *left, *right, *top;
+    struct MinHeap *minH = createMinHeap(item, freq, size );
+    while (!checkSizeOne(minH)) {
+        left = removeMin(minH);
+        right = removeMin(minH);
 
+        top = newnode('$', left -> freq + right -> freq);
+        top -> left = left;
+        top -> right = right;
+
+        insertMinHeap(minH, top);
+
+    }
+    return removeMin(minH);
+}
+
+int isLeaf(struct MinHeapNode *root) {
+    return !(root -> left) && !(root -> right);
+}
+
+void printArray(int arr[], int n) {
+    int i;
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i];
+    }
+    cout << "\n";
+}
+void printHuffmanCodes(struct MinHeapNode *root, int arr[], int top) {
+    if (root -> left) {
+        arr[top] = 0;
+        printHuffmanCodes(root -> left, arr, top + 1);
+    }
+    if (root -> right) {
+        arr[top] = 1;
+        printHuffmanCodes(root -> right, arr, top + 1);
+    }
+    if (isLeaf(root)) {
+        cout << root -> item << "  | ";
+        printArray(arr, top);
+    }
+}
+
+void HuffmanCodes(char item[], int freq[], int size) {
+    struct MinHeapNode *root = buildHFTree(item, freq, size);
+    int arr[MAX_TREE_HEIGHT], top = 0;
+
+    printHuffmanCodes(root, arr, top);
+}
