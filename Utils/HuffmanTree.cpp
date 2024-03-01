@@ -21,11 +21,38 @@ struct MinHeapNode *createHuffManTree(char values[], int frequencies[], int size
     return removeMin(prioq);
 };
 
-void HuffmanCodes(char item[], int freq[], int size) {
+void HuffmanCodesPrinter(char item[], int freq[], int size) {
     struct MinHeapNode *root = createHuffManTree(item, freq, size);
     int arr[50], top = 0;
 
     printHuffmanCodes(root, arr, top);
 }
 
+string addVal(int arr[], int n) {
+    string ans;
+
+    for (int i = 0; i < n; ++i) {
+        ans += to_string(arr[i]);
+    }
+    return ans;
+}
+
+unordered_map<char, string> buildHuffmanHashMap(MinHeapNode *root, int arr[], int top, unordered_map<char, string>& returnVal) {
+
+    if (root -> left) {
+        arr[top] = 0;
+        buildHuffmanHashMap(root -> left, arr, top + 1, returnVal);
+    }
+    if (root -> right) {
+        arr[top] = 1;
+        buildHuffmanHashMap(root -> right, arr, top + 1, returnVal);
+    }
+    if (isLeaf(root)) {
+        cout << root -> item << "  | ";
+        //printArray(arr, top);
+        returnVal[root -> item] = addVal(arr, top);
+    }
+    return returnVal;
+
+}
 

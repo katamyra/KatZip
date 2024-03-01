@@ -3,21 +3,10 @@
 //
 
 #include "HuffmanTree.h"
+#include <fstream>
 #include <iostream>
 #include <unordered_map>
-#include <fstream>
 using namespace std;
-
-int main() {
-    char arr[] = {'A', 'B', 'C', 'D'};
-    int freq[] = {5, 1, 6, 3};
-
-    int size = sizeof(arr) / sizeof(arr[0]);
-
-    cout << "Char | Huffman code ";
-    cout << "\n----------------------\n";
-    HuffmanCodes(arr, freq, size);
-}
 
 unordered_map<char, int> generateFrequencies(string pathname) {
     std::ifstream file(pathname);
@@ -38,4 +27,33 @@ unordered_map<char, int> generateFrequencies(string pathname) {
     return frequencies;
 }
 
+int main() {
+    unordered_map<char, int> testing = generateFrequencies("../Input/input.txt");
+    char arr[testing.size()];
+    int freq[testing.size()];
+    int i = 0;
+
+    for (const auto& pair : testing) { // generating hashmaps to use for HuffMan tree creation
+        arr[i] = pair.first;
+        freq[i] = pair.second;
+        //std::cout << "Key: " << pair.first << ", Value: " << pair.second << std::endl;
+        i++;
+    }
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    struct MinHeapNode *root = createHuffManTree(arr, freq, size);
+    int arrV[50], top = 0;
+
+    unordered_map<char, string> hashMap;
+    buildHuffmanHashMap(root, arrV, top, hashMap);
+
+    for (const auto& pair : hashMap) {
+        //arr[i] = pair.first;
+        //freq[i] = pair.second;
+        std::cout << "Key: " << pair.first << ", Value: " << pair.second << std::endl;
+        //i++;
+    }
+
+
+}
 

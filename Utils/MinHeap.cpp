@@ -96,23 +96,6 @@ struct MinHeap *createMinHeap(char item[], int freq[], int size) {
   return minH;
 }
 
-struct MinHeapNode *buildHFTree(char item[], int freq[], int size) {
-    struct MinHeapNode *left, *right, *top;
-    struct MinHeap *minH = createMinHeap(item, freq, size );
-    while (!checkSizeOne(minH)) {
-        left = removeMin(minH);
-        right = removeMin(minH);
-
-        top = newnode('$', left -> freq + right -> freq);
-        top -> left = left;
-        top -> right = right;
-
-        insertMinHeap(minH, top);
-
-    }
-    return removeMin(minH);
-}
-
 int isLeaf(struct MinHeapNode *root) {
     return !(root -> left) && !(root -> right);
 }
