@@ -31,7 +31,7 @@ int checkSizeOne(struct MinHeap *minH);
 struct MinHeapNode *removeMin(struct MinHeap *minH);
 void insertMinHeap(struct MinHeap *minH, struct MinHeapNode *minHNode);
 void buildMinHeap(struct MinHeap *minH);
-struct MinHeap *createMinHeap(char item[], int freq[], int size);
+struct MinHeap *createAndBuildMinHeap(char item[], int freq[], int size);
 struct MinHeapNode *buildHFTree(char item[], int freq[], int size);
 void HuffmanCodesPrinter(char item[], int freq[], int size);
 void printHuffmanCodes(struct MinHeapNode *root, int arr[], int top);
