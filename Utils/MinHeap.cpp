@@ -20,7 +20,7 @@ struct MinHeap *createMinHeap(unsigned int capacity) {
     struct MinHeap *minH = (struct MinHeap *)(malloc(sizeof (struct MinHeap))); // ? can i use new instead?
     minH -> size = 0;
     minH -> capacity = 0;
-    minH -> array = ((struct MinHeapNode **) malloc(sizeof(struct MinHeapNode)));
+    minH -> array = ((struct MinHeapNode **) malloc(minH -> capacity *sizeof(struct MinHeapNode)));
     return minH;
 }
 
@@ -85,7 +85,7 @@ void buildMinHeap(struct MinHeap *minH) {
 }
 
 
-struct MinHeap *createMinHeap(char item[], int freq[], int size) {
+struct MinHeap *createAndBuildMinHeap(char item[], int freq[], int size) {
   struct MinHeap *minH = createMinHeap(size);
   for (int i = 0; i < size; ++i) {
     minH -> array[i] = newnode(item[i], freq[i]);

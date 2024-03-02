@@ -7,7 +7,7 @@ using namespace std;
 #include "MinHeap.h"
 
 struct MinHeapNode *createHuffManTree(char values[], int frequencies[], int size) {
-    struct MinHeap *prioq = createMinHeap(values, frequencies, size);
+    struct MinHeap *prioq = createAndBuildMinHeap(values, frequencies, size);
     while (!checkSizeOne(prioq)) {
 
         struct MinHeapNode *left = removeMin(prioq);
@@ -48,8 +48,6 @@ unordered_map<char, string> buildHuffmanHashMap(MinHeapNode *root, int arr[], in
         buildHuffmanHashMap(root -> right, arr, top + 1, returnVal);
     }
     if (isLeaf(root)) {
-        cout << root -> item << "  | ";
-        //printArray(arr, top);
         returnVal[root -> item] = addVal(arr, top);
     }
     return returnVal;
