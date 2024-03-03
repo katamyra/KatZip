@@ -49,7 +49,22 @@ unordered_map<char, string> generateHash(string pathname) {
     return hashMap;
 
 }
+void writeHeader(unordered_map<char, string> huffmanEncoding, ofstream& file) {
+    int size = huffmanEncoding.size();
+    file.write(reinterpret_cast<const char*>(&size), sizeof(size)); //write # of huffman encodings for when we decode
+    for (const auto& [character, code] : huffmanEncoding) {
+        file.write(&character, sizeof(char)); //writing the assii value of the actual char
 
+        unsigned char length = code.size();
+        file.write(reinterpret_cast<const char*>(&length), sizeof(length)); // writing length of the huffman encoding, incase the length of the code is more than a byte]
+        for (int i = 0; i < code.size(); i+= 8) {
+            bitset<8> bits(code.substr(i, 8));
+            char byte = static_cast<char>(bits.to_ulong());
+            file.write(&byte, sizeof(byte));
+        }
+
+    }
+}
 void encode(unordered_map<char, string> huffmanEncoding, string outputFile, string inputFile) {
     ofstream output(outputFile, ios::binary);
     if (!output) {
@@ -63,6 +78,7 @@ void encode(unordered_map<char, string> huffmanEncoding, string outputFile, stri
         output.close();
         cerr << "input file not found";
     }
+    writeHeader(huffmanEncoding, output);
 
     char c;
     while (input.get(c)) {
@@ -73,6 +89,7 @@ void encode(unordered_map<char, string> huffmanEncoding, string outputFile, stri
         if (!encoded.empty()) {
             bitset<8> bits(encoded);
             char byte = static_cast<char>(bits.to_ulong());
+            //cout << "writing byte!";
             output.write(&byte, sizeof(byte));
         } else {
             cout << "issue with huffman encoding!" << " " << c << endl;
