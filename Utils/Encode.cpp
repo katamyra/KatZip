@@ -68,7 +68,7 @@ void writeHeader(unordered_map<char, string> huffmanEncoding, ofstream& file) {
 void encode(unordered_map<char, string> huffmanEncoding, string outputFile, string inputFile) {
     ofstream output(outputFile, ios::binary);
     if (!output) {
-        cerr << "out put file not found!";
+        cerr << "output file not found!";
     }
 //    for (const auto& pair : huffmanEncoding) {
 //        cout << "Key: " << pair.first << ", Value: " << pair.second << endl;
