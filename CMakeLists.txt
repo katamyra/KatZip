@@ -9,4 +9,6 @@ add_executable(KatZip main.cpp
         Utils/MinHeap.cpp
         Utils/MinHeap.h
         Utils/HuffmanTree.h
+        Utils/Decode.cpp
+        Utils/Decode.h
 )
