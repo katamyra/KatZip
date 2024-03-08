@@ -12,32 +12,28 @@ using namespace std;
 unordered_map<string, char> decodeMap(string pathname) {
     ifstream input(pathname, ios::binary);
     int size;
-    input.read(reinterpret_cast<char*>(size), sizeof(size));
+    input.read(reinterpret_cast<char*>(&size), sizeof(size));
     unordered_map<string, char> huffmanMap;
 
     for (int i = 0; i < size; i++) {
-
         char character;
         input.get(character);
 
-        int length;
+        unsigned char length;
         input.read(reinterpret_cast<char*>(&length), sizeof(length));
 
         string huffmanValue;
-        for (int i = 0; i <= length; i += 8) {
+        for (int i = 0; i < length; i += 8) {
             char byte;
             input.read(&byte, sizeof(byte));
 
             bitset<8> bits(byte);
             string byteString = bits.to_string();
-            huffmanValue += byteString;
+            huffmanValue += byteString.substr(8 - min(8, length - i));
         }
         huffmanMap[huffmanValue] = character;
-
     }
     return huffmanMap;
-
-
 }
 
 void decode(string inputPath, string outputPath) {
@@ -49,25 +45,31 @@ void decode(string inputPath, string outputPath) {
     ofstream output(outputPath);
     unordered_map<string, char> huffmanEncoding = decodeMap(inputPath);
 
-    // ! NEED TO SKIP THRU MAP HERE
+    string dummyLine;
+    getline(input, dummyLine);
 
+    char c;
+    string huffmanValue;
+    while (input.get(c)) {
+        bitset<8> bits(c);
+        string byteString = bits.to_string();
+        for (char bit: byteString) {
+            huffmanValue += bit;
 
-    while (!input.eof()) {
-        int length;
-        input.read(reinterpret_cast<char*>(&length), sizeof(length));
-        string huffmanValue;
-        for (int i = 0; i <= length; i += 8) {
-            char byte;
-            input.read(&byte, sizeof(byte));
-
-            bitset<8> bits(byte);
-            string byteString = bits.to_string();
-            huffmanValue += byteString;
+            auto it = huffmanEncoding.find(huffmanValue);
+            if (it != huffmanEncoding.end()) {
+                output << it->second;
+                huffmanValue.clear();
+            }
         }
-        output << huffmanEncoding[huffmanValue];
     }
+    input.close();
+    output.close();
+    cout << "Decoding completed" << endl;
 
-    cout << "Encoding completed" << endl;
 
+}
 
+int main() {
+    decode("../Output/output.kat", "../Output/decoded.txt");
 }

@@ -64,15 +64,18 @@ void writeHeader(unordered_map<char, string> huffmanEncoding, ofstream& file) {
         }
 
     }
+    char newline = '\n';
+    file.write(&newline, sizeof(newline));
+
 }
 void encode(unordered_map<char, string> huffmanEncoding, string outputFile, string inputFile) {
     ofstream output(outputFile, ios::binary);
     if (!output) {
         cerr << "output file not found!";
     }
-//    for (const auto& pair : huffmanEncoding) {
-//        cout << "Key: " << pair.first << ", Value: " << pair.second << endl;
-//    }
+    for (const auto& pair : huffmanEncoding) {
+        cout << "Key: " << pair.first << ", Value: " << pair.second << endl;
+    }
     ifstream input(inputFile);
     if (!input) {
         output.close();
@@ -102,11 +105,10 @@ void encode(unordered_map<char, string> huffmanEncoding, string outputFile, stri
 
 }
 
-
-
-int main() {
-    unordered_map<char, string> huffmanEncoding = generateHash("../Input/input.txt");
-    encode(huffmanEncoding, "../Output/output.kat", "../Input/input.txt");
-    return 0;
-}
-
+//
+//int main() {
+//    unordered_map<char, string> huffmanEncoding = generateHash("../Input/input.txt");
+//    encode(huffmanEncoding, "../Output/output.kat", "../Input/input.txt");
+//    return 0;
+//}
+//
