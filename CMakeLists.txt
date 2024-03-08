@@ -11,4 +11,5 @@ add_executable(KatZip main.cpp
         Utils/HuffmanTree.h
         Utils/Decode.cpp
         Utils/Decode.h
+        Utils/Encode.h
 )
