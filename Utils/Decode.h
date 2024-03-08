@@ -5,12 +5,10 @@
 #ifndef KATZIP_DECODE_H
 #define KATZIP_DECODE_H
 #include <unordered_map>
+#include <string>
 using namespace std;
 
-class Decode {
-    pair<int, unordered_map<string, char>> decodeMap(string pathname);
-    void decode(string inputPath, string outputPath);
-};
+void decode(string inputPath, string outputPath);
 
 
 #endif //KATZIP_DECODE_H

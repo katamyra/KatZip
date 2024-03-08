@@ -60,7 +60,6 @@ void decode(string inputPath, string outputPath) {
             auto it = huffmanEncoding.find(huffmanValue);
             if (it != huffmanEncoding.end()) {
                 output << it->second;
-                cout << "decoding:" << huffmanValue << "to: " << it -> second << endl;
                 huffmanValue.clear();
             }
         }
@@ -76,6 +75,3 @@ void decode(string inputPath, string outputPath) {
     cout << "Decoding completed" << endl;
 }
 
-int main() {
-    decode("../Output/output.kat", "../Output/decoded.txt");
-}

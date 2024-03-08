@@ -36,7 +36,6 @@ unordered_map<char, string> generateHash(string pathname) {
     for (const auto& pair : testing) { // generating hashmaps to use for HuffMan tree creation
         arr[i] = pair.first;
         freq[i] = pair.second;
-        //std::cout << "Key: " << pair.first << ", Value: " << pair.second << std::endl;
         i++;
     }
     int size = sizeof(arr) / sizeof(arr[0]);
@@ -72,9 +71,6 @@ void encode(unordered_map<char, string> huffmanEncoding, string outputFile, stri
     ofstream output(outputFile, ios::binary);
     if (!output) {
         cerr << "output file not found!";
-    }
-    for (const auto& pair : huffmanEncoding) {
-        cout << "Key: " << pair.first << ", Value: " << pair.second << endl;
     }
     ifstream input(inputFile);
     if (!input) {
