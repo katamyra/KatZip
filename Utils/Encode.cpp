@@ -84,19 +84,33 @@ void encode(unordered_map<char, string> huffmanEncoding, string outputFile, stri
     writeHeader(huffmanEncoding, output);
 
     char c;
+    string bitBuffer;
     while (input.get(c)) {
         string encoded = huffmanEncoding[c];
         if (!(huffmanEncoding.find(c) != huffmanEncoding.end())) {
             cout << "not in map!";
         }
         if (!encoded.empty()) {
-            bitset<8> bits(encoded);
-            char byte = static_cast<char>(bits.to_ulong());
-            //cout << "writing byte!";
-            output.write(&byte, sizeof(byte));
+            for (char bit: encoded) {
+                bitBuffer += bit;
+                if (bitBuffer.size() == 8) {
+                    bitset<8> bits(bitBuffer);
+                    char byte = static_cast<char>(bits.to_ulong());
+                    output.write(&byte, sizeof(byte));
+                    bitBuffer.clear();
+                }
+            }
         } else {
             cout << "issue with huffman encoding!" << " " << c << endl;
         }
+    }
+    if (!bitBuffer.empty()) {
+        while (bitBuffer.size() < 8) {
+            bitBuffer += '0'; // pad with zeros
+        }
+        bitset<8> bits(bitBuffer);
+        char byte = static_cast<char>(bits.to_ulong());
+        output.write(&byte, sizeof(byte));
     }
     input.close();
     output.close();

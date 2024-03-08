@@ -9,8 +9,8 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 
-unordered_map<string, char> decodeMap(string pathname) {
-    ifstream input(pathname, ios::binary);
+unordered_map<string, char> decodeMap(ifstream& input) {
+
     int size;
     input.read(reinterpret_cast<char*>(&size), sizeof(size));
     unordered_map<string, char> huffmanMap;
@@ -43,31 +43,37 @@ void decode(string inputPath, string outputPath) {
     }
 
     ofstream output(outputPath);
-    unordered_map<string, char> huffmanEncoding = decodeMap(inputPath);
+    unordered_map<string, char> huffmanEncoding = decodeMap(input);
 
     string dummyLine;
     getline(input, dummyLine);
 
-    char c;
     string huffmanValue;
+    char c;
     while (input.get(c)) {
         bitset<8> bits(c);
         string byteString = bits.to_string();
-        for (char bit: byteString) {
+
+        for (char bit : byteString) {
             huffmanValue += bit;
 
             auto it = huffmanEncoding.find(huffmanValue);
             if (it != huffmanEncoding.end()) {
                 output << it->second;
+                cout << "decoding:" << huffmanValue << "to: " << it -> second << endl;
                 huffmanValue.clear();
             }
+        }
+    }
+    if (!huffmanValue.empty()) {
+        auto it = huffmanEncoding.find(huffmanValue);
+        if (it != huffmanEncoding.end()) {
+            output << it->second;
         }
     }
     input.close();
     output.close();
     cout << "Decoding completed" << endl;
-
-
 }
 
 int main() {
